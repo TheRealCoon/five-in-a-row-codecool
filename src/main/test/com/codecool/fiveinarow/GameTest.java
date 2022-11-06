@@ -238,4 +238,32 @@ public class GameTest {
         assertFalse(game.hasWon(1, 5));
         assertFalse(game.hasWon(2, 2));
     }
+
+    @Test
+    void isFull_boardIsNotFull_returnsFalse() {
+        int[][] board = new int[][]{
+                {1, 2, 2, 2, 1},
+                {1, 0, 0, 0, 1},
+                {1, 1, 1, 2, 1},
+                {1, 0, 0, 0, 1},
+                {1, 1, 1, 1, 1}};
+        Game game = new Game(5, 5);
+        game.setBoard(board);
+        assertFalse(game.isFull());
+        assertFalse(game1.isFull());
+        assertFalse(game2.isFull());
+    }
+
+    @Test
+    void isFull_boardIsFull_returnsTrue() {
+        int[][] board = new int[][]{
+                {1, 2, 2, 2, 1},
+                {1, 2, 2, 2, 1},
+                {1, 1, 1, 2, 1},
+                {1, 2, 2, 2, 1},
+                {1, 1, 1, 1, 1}};
+        Game game = new Game(5, 5);
+        game.setBoard(board);
+        assertTrue(game.isFull());
+    }
 }
