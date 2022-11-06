@@ -172,4 +172,70 @@ public class GameTest {
     void Constructor_validDimensions_noException() {
         assertDoesNotThrow(() -> new Game(1, 1));
     }
+
+    @Test
+    void hasWon_playerHasWonInFirstRow_returnsTrue() {
+        int[][] board = new int[][]{
+                {1, 1, 1, 1, 1},
+                {0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0}};
+        Game game = new Game(5, 5);
+        game.setBoard(board);
+        assertTrue(game.hasWon(1, 5));
+        assertTrue(game.hasWon(1, 4));
+        assertTrue(game.hasWon(1, 3));
+        assertTrue(game.hasWon(1, 2));
+        assertTrue(game.hasWon(1, 1));
+    }
+
+    @Test
+    void hasWon_playerHasWonInMiddleRow_returnsTrue() {
+        int[][] board = new int[][]{
+                {0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0},
+                {1, 1, 1, 1, 1},
+                {0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0}};
+        Game game = new Game(5, 5);
+        game.setBoard(board);
+        assertTrue(game.hasWon(1, 5));
+        assertTrue(game.hasWon(1, 4));
+        assertTrue(game.hasWon(1, 3));
+        assertTrue(game.hasWon(1, 2));
+        assertTrue(game.hasWon(1, 1));
+    }
+
+    @Test
+    void hasWon_playerHasWonInLastRow_returnsTrue() {
+        int[][] board = new int[][]{
+                {0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0},
+                {1, 1, 1, 1, 1}};
+        Game game = new Game(5, 5);
+        game.setBoard(board);
+        assertTrue(game.hasWon(1, 5));
+        assertTrue(game.hasWon(1, 4));
+        assertTrue(game.hasWon(1, 3));
+        assertTrue(game.hasWon(1, 2));
+        assertTrue(game.hasWon(1, 1));
+    }
+
+    @Test
+    void hasWon_playerHasNotWon_returnsFalse() {
+        int[][] board = new int[][]{
+                {0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0},
+                {1, 2, 1, 1, 0},
+                {0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0}};
+        Game game = new Game(5, 5);
+        game.setBoard(board);
+        assertFalse(game.hasWon(1, 4));
+        assertFalse(game.hasWon(1, 5));
+        assertFalse(game.hasWon(2, 2));
+    }
 }
