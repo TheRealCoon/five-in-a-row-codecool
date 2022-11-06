@@ -60,6 +60,12 @@ public class Game implements GameInterface {
     }
 
     public void mark(int player, int row, int col) {
+        if (board != null &&
+                row >= 0 && col >= 0 &&
+                row < board.length && col < board[0].length &&
+                !isTaken(row, col)) {
+            board[row][col] = player;
+        }
     }
 
     public boolean hasWon(int player, int howMany) {
