@@ -7,7 +7,9 @@ public class Game implements GameInterface {
     private int[][] board;
 
     public Game(int n, int m) {
-        board = new int[n][m];
+        if (n > 0 && m > 0) {
+            board = new int[n][m];
+        } else throw new IllegalArgumentException("Board dimensions must be larger than 0!");
     }
 
     public int[][] getBoard() {
