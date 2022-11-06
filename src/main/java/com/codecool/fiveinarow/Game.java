@@ -1,10 +1,10 @@
 package com.codecool.fiveinarow;
 
 public class Game implements GameInterface {
-
     private int[][] board;
 
-    public Game(int nRows, int nCols) {
+    public Game(int n, int m) {
+        board = new int[n][m];
     }
 
     public int[][] getBoard() {
@@ -45,4 +45,5 @@ public class Game implements GameInterface {
 
     public void play(int howMany) {
     }
+
 }
