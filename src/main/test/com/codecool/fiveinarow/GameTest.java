@@ -53,6 +53,13 @@ public class GameTest {
         assertTrue(game1.isValid("qUIT"));
     }
 
+    @Test
+    void isValid_validInput_returnsTrue(){
+        assertTrue(game1.isValid("A1"));
+        assertTrue(game2.isValid("A1"));
+        assertTrue(game2.isValid("E5"));
+    }
+
 
 
 }
