@@ -22,16 +22,21 @@ public class Game implements GameInterface {
         int[] coordinates = new int[2];
         String input;
         Scanner scanner = new Scanner(System.in);
-        do {
-            System.out.print("Please enter your next move! ");
-            while (!scanner.hasNext(pattern)) {
-                System.out.println("That's not a valid Input!");
-                scanner.next(pattern);
-            }
-            input = scanner.nextLine();
-        } while (isValid(input));
-
+        System.out.print("Please enter your next move! ");
+        while(!isValid(input = scanner.nextLine())){
+            System.out.print("Not a valid input! Please enter a valid coordinate! ");
+        }
         return convertToCoordinate(input);
+    }
+
+    private boolean isValid(String input) {
+        if (input.length() < 2) return false;
+        String y = input.substring(0, 1);
+        int yIntValue = y.toUpperCase().charAt(0);
+        if (yIntValue < 'A' || yIntValue > 'A' + board.length - 1) return false;
+        String x = input.substring(1);
+        return x.chars().allMatch(Character::isDigit) &&
+                Integer.parseInt(x) >= 1 && Integer.parseInt(x) <= board[0].length;
     }
 
     public int[] getAiMove(int player) {
