@@ -22,7 +22,7 @@ public class Game implements GameInterface {
         Scanner scanner = new Scanner(System.in);
         System.out.print("Please enter your next move! ");
         while (!isValid(input = scanner.nextLine().toUpperCase())) {
-            System.out.print("Not a valid input! Please enter a valid coordinate! ");
+            System.out.print(input + " is not a valid input or is taken! Please enter a valid coordinate! ");
         }
         return convertToCoordinate(input);
     }
@@ -36,15 +36,21 @@ public class Game implements GameInterface {
     boolean isValid(String input) {
         int minLength = 2;
         int maxLength = String.valueOf(board[0].length).length() + 1;
-        if (input == null || input.length() < minLength) return false;
+        if (input == null) return false;
         if (input.equalsIgnoreCase("quit")) return true;
-        if (input.length() > maxLength) return false;
+        if (input.length() < minLength || input.length() > maxLength) return false;
         String y = input.substring(0, 1);
-        int yIntValue = y.charAt(0);
-        if (yIntValue < 'A' || yIntValue > 'A' + board.length - 1) return false;
+        int yIntValue = y.charAt(0) - 'A';
+        if (yIntValue < 0 || yIntValue > board.length - 1) return false;
         String x = input.substring(1);
         return x.chars().allMatch(Character::isDigit) &&
-                Integer.parseInt(x) >= 1 && Integer.parseInt(x) <= board[0].length;
+                Integer.parseInt(x) >= 1 &&
+                Integer.parseInt(x) <= board[0].length &&
+                !isTaken(yIntValue, Integer.parseInt(x) - 1);
+    }
+
+    private boolean isTaken(int y, int x) {
+        return board[y][x] != 0;
     }
 
     public int[] getAiMove(int player) {
