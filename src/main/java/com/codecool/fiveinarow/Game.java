@@ -4,7 +4,6 @@ import java.util.Scanner;
 
 public class Game implements GameInterface {
     private int[][] board;
-    private final String pattern = "^[a-zA-Z]\\d+$";
 
     public Game(int n, int m) {
         board = new int[n][m];
@@ -19,20 +18,27 @@ public class Game implements GameInterface {
     }
 
     public int[] getMove(int player) {
-        int[] coordinates = new int[2];
         String input;
         Scanner scanner = new Scanner(System.in);
         System.out.print("Please enter your next move! ");
-        while(!isValid(input = scanner.nextLine())){
+        while (!isValid(input = scanner.nextLine().toUpperCase())) {
             System.out.print("Not a valid input! Please enter a valid coordinate! ");
         }
         return convertToCoordinate(input);
     }
 
+    private int[] convertToCoordinate(String input) {
+        return new int[]{
+                Integer.parseInt(input.substring(1)) - 1,
+                Character.toUpperCase(input.charAt(0)) - 'A'};
+    }
+
     private boolean isValid(String input) {
-        if (input.length() < 2) return false;
+        int minLength = 2;
+        int maxLength = String.valueOf(board[0].length).length() + 1;
+        if (input.length() < minLength || input.length() > maxLength) return false;
         String y = input.substring(0, 1);
-        int yIntValue = y.toUpperCase().charAt(0);
+        int yIntValue = y.charAt(0);
         if (yIntValue < 'A' || yIntValue > 'A' + board.length - 1) return false;
         String x = input.substring(1);
         return x.chars().allMatch(Character::isDigit) &&
