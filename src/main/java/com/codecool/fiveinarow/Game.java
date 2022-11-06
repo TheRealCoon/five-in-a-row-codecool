@@ -29,8 +29,9 @@ public class Game implements GameInterface {
 
     int[] convertToCoordinate(String input) {
         return new int[]{
-                Integer.parseInt(input.substring(1)) - 1,
-                Character.toUpperCase(input.charAt(0)) - 'A'};
+                input.charAt(0) - 'A',
+                Integer.parseInt(input.substring(1)) - 1
+        };
     }
 
     boolean isValid(String input) {
