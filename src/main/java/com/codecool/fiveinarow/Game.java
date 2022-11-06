@@ -1,7 +1,10 @@
 package com.codecool.fiveinarow;
 
+import java.util.Scanner;
+
 public class Game implements GameInterface {
     private int[][] board;
+    private final String pattern = "^[a-zA-Z]\\d+$";
 
     public Game(int n, int m) {
         board = new int[n][m];
@@ -16,7 +19,19 @@ public class Game implements GameInterface {
     }
 
     public int[] getMove(int player) {
-        return null;
+        int[] coordinates = new int[2];
+        String input;
+        Scanner scanner = new Scanner(System.in);
+        do {
+            System.out.print("Please enter your next move! ");
+            while (!scanner.hasNext(pattern)) {
+                System.out.println("That's not a valid Input!");
+                scanner.next(pattern);
+            }
+            input = scanner.nextLine();
+        } while (isValid(input));
+
+        return convertToCoordinate(input);
     }
 
     public int[] getAiMove(int player) {
