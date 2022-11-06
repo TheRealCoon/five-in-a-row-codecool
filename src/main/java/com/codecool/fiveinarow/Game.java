@@ -20,7 +20,7 @@ public class Game implements GameInterface {
     public int[] getMove(int player) {
         String input;
         Scanner scanner = new Scanner(System.in);
-        System.out.print("Please enter your next move! ");
+        System.out.print("PLayer" + player + ", enter your next move: ");
         while (!isValid(input = scanner.nextLine().toUpperCase())) {
             System.out.print(input + " is not a valid input or is taken! Please enter a valid coordinate! ");
         }
