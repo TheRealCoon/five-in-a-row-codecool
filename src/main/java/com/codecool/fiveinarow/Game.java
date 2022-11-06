@@ -3,6 +3,7 @@ package com.codecool.fiveinarow;
 import java.util.Arrays;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
+import java.util.StringJoiner;
 
 public class Game implements GameInterface {
     private int[][] board;
@@ -93,6 +94,38 @@ public class Game implements GameInterface {
     }
 
     public void printBoard() {
+        StringBuilder sb = new StringBuilder();
+        char[] verticalHeader = getVerticalHeader();
+        sb.append("   ").append(getHorizontalHeader());
+        for (int i = 0; i < board.length; i++) {
+            sb.append(System.lineSeparator()).append(' ').append(verticalHeader[i]);
+            for (int j = 0; j < board[0].length; j++) {
+                char c = '.';
+                switch (board[i][j]) {
+                    case 1 -> c = 'X';
+                    case 2 -> c = 'O';
+                }
+                sb.append(' ').append(c);
+            }
+        }
+        sb.append(System.lineSeparator());
+        System.out.println(sb);
+    }
+
+    private char[] getVerticalHeader() {
+        char[] verticalHeader = new char[board.length];
+        for (int i = 0; i < board.length; i++) {
+            verticalHeader[i] = (char) ('A' + i);
+        }
+        return verticalHeader;
+    }
+
+    private String getHorizontalHeader() {
+        StringJoiner sj = new StringJoiner(" ", "", "");
+        for (int i = 0; i < board[0].length; i++) {
+            sj.add(String.valueOf(i + 1));
+        }
+        return sj.toString();
     }
 
     public void printResult(int player) {
