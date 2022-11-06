@@ -117,4 +117,32 @@ public class GameTest {
         assertEquals("Player1, enter your next move:" + System.lineSeparator() +
                 input + " is not a valid input or is taken! Please enter a valid coordinate!", outContent.toString().trim());
     }
+
+    @Test
+    void mark_invalidInput_doesNothing() {
+        int[][] board = game1.getBoard();
+        game1.mark(1, 2, 0);
+        for (int i = 0; i < board.length; i++) {
+            for (int j = 0; j < board[0].length; j++) {
+                assertEquals(board[i][j], game1.getBoard()[i][j]);
+            }
+        }
+    }
+
+    @Test
+    void mark_nullBoard_doesNothing() {
+        game1.setBoard(null);
+        game1.mark(1, 0, 0);
+        assertNull(game1.getBoard());
+    }
+
+    @Test
+    void mark_validInput_changesBoard() {
+        game1.mark(1, 0, 0);
+        assertEquals(1, game1.getBoard()[0][0]);
+
+        game2.mark(2, 3, 3);
+        assertEquals(2, game2.getBoard()[3][3]);
+
+    }
 }
