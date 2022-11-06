@@ -14,8 +14,7 @@ import static org.junit.jupiter.api.Assertions.*;
 public class GameTest {
     Game game1 = new Game(1, 1);
     Game game2 = new Game(5, 5);
-    Game game3 = new Game(1, 1);
-    Game game4 = new Game(1, 1);
+
     private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
     private final PrintStream originalOut = System.out;
 
@@ -143,6 +142,34 @@ public class GameTest {
 
         game2.mark(2, 3, 3);
         assertEquals(2, game2.getBoard()[3][3]);
+    }
 
+    @Test
+    void Constructor_oneInvalidDimension_throwsIllegalArgumentException() {
+        assertThrows(IllegalArgumentException.class, () -> new Game(2, 0));
+        assertThrows(IllegalArgumentException.class, () -> new Game(0, 2));
+        assertThrows(IllegalArgumentException.class, () -> new Game(-1, 2));
+        assertThrows(IllegalArgumentException.class, () -> new Game(0, -1));
+    }
+
+    @Test
+    void Constructor_twoInvalidDimensions_throwsIllegalArgumentException() {
+        assertThrows(IllegalArgumentException.class, () -> new Game(0, 0));
+        assertThrows(IllegalArgumentException.class, () -> new Game(-1, -1));
+    }
+
+    @Test
+    void Constructor_validDimensions_boardCreatedAndRightSize() {
+        Game game = new Game(1, 1);
+        assertEquals(1, game.getBoard().length);
+        assertEquals(1, game.getBoard()[0].length);
+        game = new Game(3, 8);
+        assertEquals(3, game.getBoard().length);
+        assertEquals(8, game.getBoard()[0].length);
+    }
+
+    @Test
+    void Constructor_validDimensions_noException() {
+        assertDoesNotThrow(() -> new Game(1, 1));
     }
 }
