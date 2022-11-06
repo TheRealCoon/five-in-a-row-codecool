@@ -27,16 +27,18 @@ public class Game implements GameInterface {
         return convertToCoordinate(input);
     }
 
-    private int[] convertToCoordinate(String input) {
+    int[] convertToCoordinate(String input) {
         return new int[]{
                 Integer.parseInt(input.substring(1)) - 1,
                 Character.toUpperCase(input.charAt(0)) - 'A'};
     }
 
-    private boolean isValid(String input) {
+    boolean isValid(String input) {
         int minLength = 2;
         int maxLength = String.valueOf(board[0].length).length() + 1;
-        if (input.length() < minLength || input.length() > maxLength) return false;
+        if (input == null || input.length() < minLength) return false;
+        if (input.equalsIgnoreCase("quit")) return true;
+        if (input.length() > maxLength) return false;
         String y = input.substring(0, 1);
         int yIntValue = y.charAt(0);
         if (yIntValue < 'A' || yIntValue > 'A' + board.length - 1) return false;
