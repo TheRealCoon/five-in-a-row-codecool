@@ -1,5 +1,6 @@
 package com.codecool.fiveinarow;
 
+import java.util.Arrays;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 
@@ -71,8 +72,16 @@ public class Game implements GameInterface {
     }
 
     public boolean hasWon(int player, int howMany) {
+        for (int[] row : board) {
+            int count = 0;
+            for (int cell : row) {
+                if (cell == player) count++;
+                if (count >= howMany) return true;
+            }
+        }
         return false;
     }
+
 
     public boolean isFull() {
         return false;
