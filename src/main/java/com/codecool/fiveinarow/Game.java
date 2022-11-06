@@ -11,7 +11,7 @@ public class Game implements GameInterface {
     public Game(int n, int m) {
         if (n > 0 && m > 0) {
             board = new int[n][m];
-        } else throw new IllegalArgumentException("Board dimensions must be larger than 0!");
+        } else throw new IllegalArgumentException("Board dimensions and  must be larger than 0!");
     }
 
     public int[][] getBoard() {
@@ -29,6 +29,7 @@ public class Game implements GameInterface {
         while (!isValid(input = scanner.nextLine().toUpperCase())) {
             System.out.println(input + " is not a valid input or is taken! Please enter a valid coordinate!");
         }
+        if (input.equalsIgnoreCase("quit")) quit();
         return convertToCoordinate(input);
     }
 
@@ -96,16 +97,16 @@ public class Game implements GameInterface {
     public void printBoard() {
         StringBuilder sb = new StringBuilder();
         char[] verticalHeader = getVerticalHeader();
-        sb.append("   ").append(getHorizontalHeader());
+        sb.append(getHorizontalHeader());
         for (int i = 0; i < board.length; i++) {
-            sb.append(System.lineSeparator()).append(' ').append(verticalHeader[i]);
+            sb.append(System.lineSeparator()).append("  ").append(verticalHeader[i]);
             for (int j = 0; j < board[0].length; j++) {
                 char c = '.';
                 switch (board[i][j]) {
                     case 1 -> c = 'X';
                     case 2 -> c = 'O';
                 }
-                sb.append(' ').append(c);
+                sb.append("  ").append(c);
             }
         }
         sb.append(System.lineSeparator());
@@ -121,7 +122,7 @@ public class Game implements GameInterface {
     }
 
     private String getHorizontalHeader() {
-        StringJoiner sj = new StringJoiner(" ", "", "");
+        StringJoiner sj = new StringJoiner("  ", "     ", "");
         for (int i = 0; i < board[0].length; i++) {
             sj.add(String.valueOf(i + 1));
         }
@@ -129,6 +130,15 @@ public class Game implements GameInterface {
     }
 
     public void printResult(int player) {
+        String msg;
+        if (player == 1) {
+            msg = "X won!";
+        } else if (player == 2) {
+            msg = "O won!";
+        } else {
+            msg = "It's a tie!";
+        }
+        System.out.println(msg);
     }
 
     public void enableAi(int player) {
@@ -137,4 +147,8 @@ public class Game implements GameInterface {
     public void play(int howMany) {
     }
 
+    private void quit() {
+        System.out.println("Quiting...");
+        System.exit(0);
+    }
 }

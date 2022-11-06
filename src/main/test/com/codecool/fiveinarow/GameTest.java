@@ -266,4 +266,48 @@ public class GameTest {
         game.setBoard(board);
         assertTrue(game.isFull());
     }
+
+    @Test
+    void printBoard_boardIsFull_printsBoardAsExpected() {
+        int[][] board = new int[][]{
+                {1, 2, 2, 2, 1},
+                {1, 2, 2, 2, 1},
+                {1, 1, 1, 2, 1},
+                {1, 2, 2, 2, 1},
+                {1, 1, 1, 1, 1}};
+        Game game = new Game(5, 5);
+        game.setBoard(board);
+        game.printBoard();
+        assertEquals(
+                "     1  2  3  4  5" + System.lineSeparator() +
+                        "  A  X  O  O  O  X" + System.lineSeparator() +
+                        "  B  X  O  O  O  X" + System.lineSeparator() +
+                        "  C  X  X  X  O  X" + System.lineSeparator() +
+                        "  D  X  O  O  O  X" + System.lineSeparator() +
+                        "  E  X  X  X  X  X" + System.lineSeparator() +
+                        System.lineSeparator(),
+                outContent.toString());
+    }
+
+    @Test
+    void printBoard_boardIsEmpty_printsdots() {
+        int[][] board = new int[][]{
+                {0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0}};
+        Game game = new Game(5, 5);
+        game.setBoard(board);
+        game.printBoard();
+        assertEquals(
+                "     1  2  3  4  5" + System.lineSeparator() +
+                        "  A  .  .  .  .  ." + System.lineSeparator() +
+                        "  B  .  .  .  .  ." + System.lineSeparator() +
+                        "  C  .  .  .  .  ." + System.lineSeparator() +
+                        "  D  .  .  .  .  ." + System.lineSeparator() +
+                        "  E  .  .  .  .  ." + System.lineSeparator() +
+                        System.lineSeparator(),
+                outContent.toString());
+    }
 }
