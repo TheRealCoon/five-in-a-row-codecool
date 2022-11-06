@@ -1,6 +1,13 @@
 package com.codecool.fiveinarow;
 
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
+import java.util.NoSuchElementException;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -9,6 +16,19 @@ public class GameTest {
     Game game2 = new Game(5, 5);
     Game game3 = new Game(1, 1);
     Game game4 = new Game(1, 1);
+    private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+    private final PrintStream originalOut = System.out;
+
+    @BeforeEach
+    public void setUpStreams() {
+        System.setOut(new PrintStream(outContent));
+    }
+
+    @AfterEach
+    public void restoreStreams() {
+        System.setOut(originalOut);
+        System.setIn(System.in);
+    }
 
     @Test
     void isValid_emptyInput_returnsFalse() {
@@ -78,4 +98,23 @@ public class GameTest {
         assertEquals(4, game2.convertToCoordinate("A5")[1]);
     }
 
+    @Test
+    void getMove_validInput_outputRightInput() {
+        String input = "A1";
+        System.setIn(new ByteArrayInputStream(input.getBytes()));
+        int[] expected = new int[]{0, 0};
+        int[] actual = game1.getMove(1);
+        assertEquals(expected[0], actual[0]);
+        assertEquals(expected[1], actual[1]);
+        assertEquals("Player1, enter your next move:", outContent.toString().trim());
+    }
+
+    @Test
+    void getMove_invalidInput_throwsException_outputIsRight() {
+        String input = "B1";
+        System.setIn(new ByteArrayInputStream(input.getBytes()));
+        assertThrows(NoSuchElementException.class, () -> game1.getMove(1));
+        assertEquals("Player1, enter your next move:" + System.lineSeparator() +
+                input + " is not a valid input or is taken! Please enter a valid coordinate!", outContent.toString().trim());
+    }
 }
