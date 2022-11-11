@@ -120,11 +120,11 @@ public class Game implements GameInterface {
                     for (int k = 1; k < maxK; k++) {
                         if (board[i + k][j + k] == player) {
                             counter++;
-                            if (counter == howMany) return true;
                         } else {
                             break;
                         }
                     }
+                    if (counter == howMany) return true;
                 }
             }
         }
@@ -140,10 +140,10 @@ public class Game implements GameInterface {
                     for (int k = 1; k < maxK; k++) {
                         if (board[i - k][j + k] == player) {
                             counter++;
-                            if (counter == howMany) return true;
                         } else {
                             break;
                         }
+                        if (counter == howMany) return true;
                     }
                 }
             }
@@ -160,11 +160,11 @@ public class Game implements GameInterface {
                     for (int k = j + 1; k < maxK; k++) {
                         if (board[i][k] == player) {
                             counter++;
-                            if (counter == howMany) return true;
                         } else {
                             j = k;
                             break;
                         }
+                        if (counter == howMany) return true;
                     }
                 }
             }
@@ -181,11 +181,11 @@ public class Game implements GameInterface {
                     for (int k = j + 1; k < maxK; k++) {
                         if (board[i][k] == player) {
                             counter++;
-                            if (counter == howMany) return true;
                         } else {
                             j = k;
                             break;
                         }
+                        if (counter == howMany) return true;
                     }
                 }
             }
