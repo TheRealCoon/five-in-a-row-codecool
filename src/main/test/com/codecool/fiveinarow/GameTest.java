@@ -183,11 +183,11 @@ public class GameTest {
                 {0, 0, 0, 0, 0}};
         Game game = new Game(5, 5);
         game.setBoard(board);
-        assertTrue(game.hasWon(1, 5));
-        assertTrue(game.hasWon(1, 4));
-        assertTrue(game.hasWon(1, 3));
-        assertTrue(game.hasWon(1, 2));
-        assertTrue(game.hasWon(1, 1));
+        assertTrue(game.hasWon(1));
+        assertTrue(game.hasWon(1));
+        assertTrue(game.hasWon(1));
+        assertTrue(game.hasWon(1));
+        assertTrue(game.hasWon(1));
     }
 
     @Test
@@ -200,11 +200,11 @@ public class GameTest {
                 {0, 0, 0, 0, 0}};
         Game game = new Game(5, 5);
         game.setBoard(board);
-        assertTrue(game.hasWon(1, 5));
-        assertTrue(game.hasWon(1, 4));
-        assertTrue(game.hasWon(1, 3));
-        assertTrue(game.hasWon(1, 2));
-        assertTrue(game.hasWon(1, 1));
+        assertTrue(game.hasWon(1));
+        assertTrue(game.hasWon(1));
+        assertTrue(game.hasWon(1));
+        assertTrue(game.hasWon(1));
+        assertTrue(game.hasWon(1));
     }
 
     @Test
@@ -217,11 +217,11 @@ public class GameTest {
                 {1, 1, 1, 1, 1}};
         Game game = new Game(5, 5);
         game.setBoard(board);
-        assertTrue(game.hasWon(1, 5));
-        assertTrue(game.hasWon(1, 4));
-        assertTrue(game.hasWon(1, 3));
-        assertTrue(game.hasWon(1, 2));
-        assertTrue(game.hasWon(1, 1));
+        assertTrue(game.hasWon(1));
+        assertTrue(game.hasWon(1));
+        assertTrue(game.hasWon(1));
+        assertTrue(game.hasWon(1));
+        assertTrue(game.hasWon(1));
     }
 
     @Test
@@ -234,9 +234,9 @@ public class GameTest {
                 {0, 0, 0, 0, 0}};
         Game game = new Game(5, 5);
         game.setBoard(board);
-        assertFalse(game.hasWon(1, 4));
-        assertFalse(game.hasWon(1, 5));
-        assertFalse(game.hasWon(2, 2));
+        assertFalse(game.hasWon(1));
+        assertFalse(game.hasWon(1));
+        assertFalse(game.hasWon(2));
     }
 
     @Test

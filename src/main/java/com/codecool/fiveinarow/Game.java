@@ -1,17 +1,50 @@
 package com.codecool.fiveinarow;
 
-import java.util.Arrays;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 import java.util.StringJoiner;
 
 public class Game implements GameInterface {
     private int[][] board;
+    private final int howMany;
+    private final int MIN_HOW_MANY = 3;
 
     public Game(int n, int m) {
-        if (n > 0 && m > 0) {
+        if (n >= MIN_HOW_MANY && m >= MIN_HOW_MANY) {
             board = new int[n][m];
-        } else throw new IllegalArgumentException("Board dimensions and  must be larger than 0!");
+        } else throw new IllegalArgumentException("Board dimensions must be equal or greater than 3!");
+        howMany = getUserInputForHowMany();
+    }
+
+    private int getUserInputForHowMany() {
+        String input;
+        int number = 0;
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("How many marks in a row are needed for win?");
+        while (!isValidNumber(input = scanner.nextLine())) {
+            System.out.println(input + " is not a valid number! Input must be a number and greater than " + MIN_HOW_MANY + "!");
+            if (input.equalsIgnoreCase("quit")) quit();
+            try {
+                number = Integer.parseInt(input);
+            } catch (NumberFormatException e) {
+                System.out.println("Couldn't convert '" + input + "' into a number!");
+            }
+        }
+        scanner.close();
+        return number;
+    }
+
+    private boolean isValidNumber(String text) {
+        int number;
+        if (text == null) {
+            return false;
+        }
+        try {
+            number = Integer.parseInt(text);
+        } catch (NumberFormatException e) {
+            return false;
+        }
+        return number >= MIN_HOW_MANY;
     }
 
     public int[][] getBoard() {
@@ -30,6 +63,7 @@ public class Game implements GameInterface {
             System.out.println(input + " is not a valid input or is taken! Please enter a valid coordinate!");
         }
         if (input.equalsIgnoreCase("quit")) quit();
+        scanner.close();
         return convertToCoordinate(input);
     }
 
@@ -73,12 +107,87 @@ public class Game implements GameInterface {
         }
     }
 
-    public boolean hasWon(int player, int howMany) {
-        for (int[] row : board) {
-            int count = 0;
-            for (int cell : row) {
-                if (cell == player) count++;
-                if (count >= howMany) return true;
+    public boolean hasWon(int player) {
+        return hasWonHorizontally(player) || hasWonVertically(player) || hasWonDiagonallyUp(player) || hasWonDiagonallyDown(player);
+    }
+
+    private boolean hasWonDiagonallyDown(int player) {
+        for (int i = 0; i < board.length - howMany + 1; i++) {
+            for (int j = 0; j < board[0].length - howMany + 1; j++) {
+                if (board[i][j] == player) {
+                    int counter = 1;
+                    int maxK = Math.min(howMany, Math.min(board.length - i, board[0].length - j));
+                    for (int k = 1; k < maxK; k++) {
+                        if (board[i + k][j + k] == player) {
+                            counter++;
+                            if (counter == howMany) return true;
+                        } else {
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+        return false;
+    }
+
+    private boolean hasWonDiagonallyUp(int player) {
+        for (int i = howMany - 1; i >= 0; i--) {
+            for (int j = 0; j < board[0].length - howMany + 1; j++) {
+                if (board[i][j] == player) {
+                    int counter = 1;
+                    int maxK = Math.min(howMany, Math.min(i, board[0].length - j));
+                    for (int k = 1; k < maxK; k++) {
+                        if (board[i - k][j + k] == player) {
+                            counter++;
+                            if (counter == howMany) return true;
+                        } else {
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+        return false;
+    }
+
+    private boolean hasWonHorizontally(int player) {
+        for (int i = 0; i < board.length; i++) {
+            for (int j = 0; j < board[0].length - howMany + 1; j++) {
+                if (board[i][j] == player) {
+                    int counter = 1;
+                    int maxK = Math.min(j + howMany, board[0].length);
+                    for (int k = j + 1; k < maxK; k++) {
+                        if (board[i][k] == player) {
+                            counter++;
+                            if (counter == howMany) return true;
+                        } else {
+                            j = k;
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+        return false;
+    }
+
+    private boolean hasWonVertically(int player) {
+        for (int i = 0; i < board[0].length; i++) {
+            for (int j = 0; j < board.length - howMany + 1; j++) {
+                if (board[j][i] == player) {
+                    int counter = 1;
+                    int maxK = Math.min(j + howMany, board.length);
+                    for (int k = j + 1; k < maxK; k++) {
+                        if (board[i][k] == player) {
+                            counter++;
+                            if (counter == howMany) return true;
+                        } else {
+                            j = k;
+                            break;
+                        }
+                    }
+                }
             }
         }
         return false;
@@ -144,7 +253,8 @@ public class Game implements GameInterface {
     public void enableAi(int player) {
     }
 
-    public void play(int howMany) {
+    public void play() {
+
     }
 
     private void quit() {
