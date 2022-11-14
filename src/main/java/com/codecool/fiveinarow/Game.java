@@ -22,7 +22,8 @@ public class Game implements GameInterface {
         Scanner scanner = new Scanner(System.in);
         System.out.println("How many marks in a row are needed for win?");
         while (!isValidNumber(input = scanner.nextLine())) {
-            System.out.println(input + " is not a valid number! Input must be a number and greater than " + MIN_HOW_MANY + "!");
+            System.out.println("Input must be a number, greater than " + (MIN_HOW_MANY - 1) +
+                    ", and smaller than " + (Math.max(board.length, board[0].length) + 1) + "!");
             if (input.equalsIgnoreCase("quit")) quit();
         }
         try {
