@@ -8,7 +8,8 @@ public class Game implements GameInterface {
     private int[][] board;
     private final int howMany;
     private final int MIN_HOW_MANY = 3;
-
+//    private final Input input = new Input();
+//TODO implement Input here also, to get rid of NoSuchElementException<- problem was the scanner.close(), but still implement Input
     public Game(int n, int m) {
         if (n >= MIN_HOW_MANY && m >= MIN_HOW_MANY) {
             board = new int[n][m];
@@ -31,7 +32,6 @@ public class Game implements GameInterface {
         } catch (NumberFormatException e) {
             System.out.println("Couldn't convert '" + input + "' into a number!");
         }
-        scanner.close();
         return number;
     }
 
@@ -64,7 +64,6 @@ public class Game implements GameInterface {
             System.out.println(input + " is not a valid input or is taken! Please enter a valid coordinate!");
         }
         if (input.equalsIgnoreCase("quit")) quit();
-        scanner.close();
         return convertToCoordinate(input);
     }
 
