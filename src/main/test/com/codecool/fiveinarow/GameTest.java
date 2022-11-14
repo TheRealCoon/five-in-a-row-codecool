@@ -11,8 +11,8 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class GameTest {
 
-    private final String input1 = "3" + System.getProperty("line.separator") + "5" + System.lineSeparator();
-    private final String input2 = "5";
+    private final String HOW_MANY_3 = "3";
+    private final String HOW_MANY_5 = "5";
     private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
     private final PrintStream originalOut = System.out;
     private final InputStream originalIn = System.in;
@@ -30,7 +30,7 @@ public class GameTest {
 
     @Test
     void isValid_emptyInput_returnsFalse() throws IOException {
-        System.setIn(new ByteArrayInputStream(input1.getBytes()));
+        System.setIn(new ByteArrayInputStream(HOW_MANY_3.getBytes()));
         Game game1 = new Game(3, 3);
         System.in.close();
         assertFalse(game1.isValid(""));
@@ -38,7 +38,7 @@ public class GameTest {
 
     @Test
     void isValid_nullInput_returnsFalse() throws IOException {
-        System.setIn(new ByteArrayInputStream(input1.getBytes()));
+        System.setIn(new ByteArrayInputStream(HOW_MANY_3.getBytes()));
         Game game1 = new Game(3, 3);
         System.in.close();
         assertFalse(game1.isValid(null));
@@ -46,7 +46,7 @@ public class GameTest {
 
     @Test
     void isValid_wrongFormatInput_returnsFalse() throws IOException {
-        System.setIn(new ByteArrayInputStream(input1.getBytes()));
+        System.setIn(new ByteArrayInputStream(HOW_MANY_3.getBytes()));
         Game game1 = new Game(3, 3);
         System.in.close();
         assertFalse(game1.isValid("1A"));
@@ -61,7 +61,7 @@ public class GameTest {
 
     @Test
     void isValid_coordinateOutsideOfBoard_returnsFalse() throws IOException {
-        System.setIn(new ByteArrayInputStream(input1.getBytes()));
+        System.setIn(new ByteArrayInputStream(HOW_MANY_3.getBytes()));
         Game game2 = new Game(5, 5);
         System.in.close();
         assertFalse(game2.isValid("A0"));
@@ -71,19 +71,16 @@ public class GameTest {
 
     @Test
     void isValid_coordinateIsTaken_returnsFalse() throws IOException {
-        System.setIn(new ByteArrayInputStream(input1.getBytes()));
+        System.setIn(new ByteArrayInputStream(HOW_MANY_3.getBytes()));
         Game game1 = new Game(3, 3);
         System.in.close();
-        game1.setBoard(new int[][]{
-                {1, 0, 0},
-                {0, 0, 0},
-                {0, 0, 0}});
+        game1.setBoard(new int[][]{{1, 0, 0}, {0, 0, 0}, {0, 0, 0}});
         assertFalse(game1.isValid("A1"));
     }
 
     @Test
     void isValid_quitInput_returnsTrue() throws IOException {
-        System.setIn(new ByteArrayInputStream(input1.getBytes()));
+        System.setIn(new ByteArrayInputStream(HOW_MANY_3.getBytes()));
         Game game1 = new Game(3, 3);
         System.in.close();
         assertTrue(game1.isValid("quit"));
@@ -94,7 +91,7 @@ public class GameTest {
 
     @Test
     void isValid_validInput_returnsTrue() throws IOException {
-        System.setIn(new ByteArrayInputStream(input1.getBytes()));
+        System.setIn(new ByteArrayInputStream(HOW_MANY_3.getBytes()));
         Game game2 = new Game(5, 5);
         System.in.close();
         assertTrue(game2.isValid("A1"));
@@ -103,11 +100,11 @@ public class GameTest {
 
     @Test
     void convertToCoordinate_validInput_returnsExpectedCoordinate() throws IOException {
-        System.setIn(new ByteArrayInputStream(input1.getBytes()));
+        System.setIn(new ByteArrayInputStream(HOW_MANY_3.getBytes()));
         Game game1 = new Game(3, 3);
         System.in.close();
 
-        System.setIn(new ByteArrayInputStream(input1.getBytes()));
+        System.setIn(new ByteArrayInputStream(HOW_MANY_3.getBytes()));
         Game game2 = new Game(5, 5);
         System.in.close();
 
@@ -126,7 +123,7 @@ public class GameTest {
 
     @Test
     void getMove_validInput_outputRightInput() throws IOException {
-        System.setIn(new ByteArrayInputStream(input1.getBytes()));
+        System.setIn(new ByteArrayInputStream(HOW_MANY_3.getBytes()));
         Game game1 = new Game(3, 3);
         System.in.close();
 
@@ -137,26 +134,23 @@ public class GameTest {
         int[] actual = game1.getMove(1);
         assertEquals(expected[0], actual[0]);
         assertEquals(expected[1], actual[1]);
-        assertEquals("How many marks in a row are needed for win?" + System.lineSeparator() +
-                "Player1, enter your next move:", outContent.toString().trim());
+        assertEquals("How many marks in a row are needed for win?" + System.lineSeparator() + "Player1, enter your next move:", outContent.toString().trim());
     }
 
     @Test
     void getMove_invalidInput_throwsException_outputIsRight() throws IOException {
-        System.setIn(new ByteArrayInputStream(input1.getBytes()));
+        System.setIn(new ByteArrayInputStream(HOW_MANY_3.getBytes()));
         Game game1 = new Game(3, 3);
         System.in.close();
         String input = "D1";
         System.setIn(new ByteArrayInputStream(input.getBytes()));
         assertThrows(NoSuchElementException.class, () -> game1.getMove(1));
-        assertEquals("How many marks in a row are needed for win?" + System.lineSeparator() +
-                "Player1, enter your next move:" + System.lineSeparator() +
-                input + " is not a valid input or is taken! Please enter a valid coordinate!", outContent.toString().trim());
+        assertEquals("How many marks in a row are needed for win?" + System.lineSeparator() + "Player1, enter your next move:" + System.lineSeparator() + input + " is not a valid input or is taken! Please enter a valid coordinate!", outContent.toString().trim());
     }
 
     @Test
     void mark_invalidInput_doesNothing() throws IOException {
-        System.setIn(new ByteArrayInputStream(input1.getBytes()));
+        System.setIn(new ByteArrayInputStream(HOW_MANY_3.getBytes()));
         Game game1 = new Game(3, 3);
         System.in.close();
         int[][] board = game1.getBoard();
@@ -170,7 +164,7 @@ public class GameTest {
 
     @Test
     void mark_nullBoard_doesNothing() throws IOException {
-        System.setIn(new ByteArrayInputStream(input1.getBytes()));
+        System.setIn(new ByteArrayInputStream(HOW_MANY_3.getBytes()));
         Game game1 = new Game(3, 3);
         System.in.close();
         game1.setBoard(null);
@@ -180,13 +174,14 @@ public class GameTest {
 
     @Test
     void mark_validInput_changesBoard() throws IOException {
-        System.setIn(new ByteArrayInputStream(input1.getBytes()));
+        System.setIn(new ByteArrayInputStream(HOW_MANY_3.getBytes()));
         Game game1 = new Game(3, 3);
         System.in.close();
         game1.mark(1, 0, 0);
         assertEquals(1, game1.getBoard()[0][0]);
-        System.setIn(new ByteArrayInputStream(input1.getBytes()));
+        System.setIn(new ByteArrayInputStream(HOW_MANY_3.getBytes()));
         Game game2 = new Game(5, 5);
+
         System.in.close();
         game2.mark(2, 3, 3);
         assertEquals(2, game2.getBoard()[3][3]);
@@ -208,12 +203,12 @@ public class GameTest {
 
     @Test
     void Constructor_validDimensions_boardCreatedAndRightSize() throws IOException {
-        System.setIn(new ByteArrayInputStream(input1.getBytes()));
+        System.setIn(new ByteArrayInputStream(HOW_MANY_3.getBytes()));
         Game game = new Game(3, 3);
         System.in.close();
         assertEquals(3, game.getBoard().length);
         assertEquals(3, game.getBoard()[0].length);
-        System.setIn(new ByteArrayInputStream(input1.getBytes()));
+        System.setIn(new ByteArrayInputStream(HOW_MANY_3.getBytes()));
         game = new Game(3, 8);
         System.in.close();
         assertEquals(3, game.getBoard().length);
@@ -222,105 +217,103 @@ public class GameTest {
 
     @Test
     void Constructor_validDimensions_noException() throws IOException {
-        System.setIn(new ByteArrayInputStream(input1.getBytes()));
+        System.setIn(new ByteArrayInputStream(HOW_MANY_3.getBytes()));
         assertDoesNotThrow(() -> new Game(3, 3));
         System.in.close();
     }
 
-    //    @Test
-//    void hasWon_playerHasWonInFirstRow_returnsTrue() {
-//        int[][] board = new int[][]{
-//                {1, 1, 1, 1, 1},
-//                {0, 0, 0, 0, 0},
-//                {0, 0, 0, 0, 0},
-//                {0, 0, 0, 0, 0},
-//                {0, 0, 0, 0, 0}};
-//        Game game = new Game(5, 5);
-//        game.setBoard(board);
-//        assertTrue(game.hasWon(1));
-//        assertTrue(game.hasWon(1));
-//        assertTrue(game.hasWon(1));
-//        assertTrue(game.hasWon(1));
-//        assertTrue(game.hasWon(1));
-//    }
-//
-//    @Test
-//    void hasWon_playerHasWonInMiddleRow_returnsTrue() {
-//        int[][] board = new int[][]{
-//                {0, 0, 0, 0, 0},
-//                {0, 0, 0, 0, 0},
-//                {1, 1, 1, 1, 1},
-//                {0, 0, 0, 0, 0},
-//                {0, 0, 0, 0, 0}};
-//        Game game = new Game(5, 5);
-//        game.setBoard(board);
-//        assertTrue(game.hasWon(1));
-//        assertTrue(game.hasWon(1));
-//        assertTrue(game.hasWon(1));
-//        assertTrue(game.hasWon(1));
-//        assertTrue(game.hasWon(1));
-//    }
-//
-//    @Test
-//    void hasWon_playerHasWonInLastRow_returnsTrue() {
-//        int[][] board = new int[][]{
-//                {0, 0, 0, 0, 0},
-//                {0, 0, 0, 0, 0},
-//                {0, 0, 0, 0, 0},
-//                {0, 0, 0, 0, 0},
-//                {1, 1, 1, 1, 1}};
-//        Game game = new Game(5, 5);
-//        game.setBoard(board);
-//        assertTrue(game.hasWon(1));
-//        assertTrue(game.hasWon(1));
-//        assertTrue(game.hasWon(1));
-//        assertTrue(game.hasWon(1));
-//        assertTrue(game.hasWon(1));
-//    }
-//
-//    @Test
-//    void hasWon_playerHasNotWon_returnsFalse() {
-//        int[][] board = new int[][]{
-//                {0, 0, 0, 0, 0},
-//                {0, 0, 0, 0, 0},
-//                {0, 1, 1, 2, 1},
-//                {0, 0, 0, 0, 0},
-//                {0, 0, 0, 0, 0}};
-//        Game game = new Game(5, 5);
-//        game.setBoard(board);
-//        assertFalse(game.hasWon(1));
-//        assertFalse(game.hasWon(1));
-//        assertFalse(game.hasWon(2));
-//    }
-//
-//    @Test
-//    void isFull_boardIsNotFull_returnsFalse() {
-//        int[][] board = new int[][]{
-//                {1, 2, 2, 2, 1},
-//                {1, 0, 0, 0, 1},
-//                {1, 1, 1, 2, 1},
-//                {1, 0, 0, 0, 1},
-//                {1, 1, 1, 1, 1}};
-//        Game game = new Game(5, 5);
-//        game.setBoard(board);
-//        assertFalse(game.isFull());
-//        assertFalse(game1.isFull());
-//        assertFalse(game2.isFull());
-//    }
-//
-//    @Test
-//    void isFull_boardIsFull_returnsTrue() {
-//        int[][] board = new int[][]{
-//                {1, 2, 2, 2, 1},
-//                {1, 2, 2, 2, 1},
-//                {1, 1, 1, 2, 1},
-//                {1, 2, 2, 2, 1},
-//                {1, 1, 1, 1, 1}};
-//        Game game = new Game(5, 5);
-//        game.setBoard(board);
-//        assertTrue(game.isFull());
-//    }
-//
+    @Test
+    void hasWon_playerHasWonInFirstRow_returnsTrue() throws IOException {
+        System.setIn(new ByteArrayInputStream(HOW_MANY_5.getBytes()));
+        Game game = new Game(5, 5);
+        System.in.close();
+        int[][] board = new int[][]{
+                {1, 1, 1, 1, 1},
+                {0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0}};
+        game.setBoard(board);
+        assertTrue(game.hasWon(1));
+    }
+
+
+    @Test
+    void hasWon_playerHasWonInMiddleRow_returnsTrue() throws IOException {
+        System.setIn(new ByteArrayInputStream(HOW_MANY_5.getBytes()));
+        Game game = new Game(5, 5);
+        System.in.close();
+        int[][] board = new int[][]{
+                {0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0},
+                {1, 1, 1, 1, 1},
+                {0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0}};
+        game.setBoard(board);
+        assertTrue(game.hasWon(1));
+    }
+
+    @Test
+    void hasWon_playerHasWonInLastRow_returnsTrue() throws IOException {
+        System.setIn(new ByteArrayInputStream(HOW_MANY_5.getBytes()));
+        Game game = new Game(5, 5);
+        System.in.close();
+        int[][] board = new int[][]{
+                {0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0},
+                {1, 1, 1, 1, 1}};
+        game.setBoard(board);
+        assertTrue(game.hasWon(1));
+    }
+
+    @Test
+    void hasWon_playerHasNotWon_returnsFalse() throws IOException {
+        System.setIn(new ByteArrayInputStream(HOW_MANY_5.getBytes()));
+        Game game = new Game(5, 5);
+        System.in.close();
+        int[][] board = new int[][]{
+                {0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0},
+                {0, 1, 1, 2, 1},
+                {0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0}};
+        game.setBoard(board);
+        assertFalse(game.hasWon(1));
+        assertFalse(game.hasWon(2));
+    }
+
+    @Test
+    void isFull_boardIsNotFull_returnsFalse() throws IOException {
+        System.setIn(new ByteArrayInputStream(HOW_MANY_5.getBytes()));
+        Game game = new Game(5, 5);
+        System.in.close();
+        int[][] board = new int[][]{
+                {1, 2, 2, 2, 1},
+                {1, 0, 0, 0, 1},
+                {1, 1, 1, 2, 1},
+                {1, 0, 0, 0, 1},
+                {1, 1, 1, 1, 1}};
+        game.setBoard(board);
+        assertFalse(game.isFull());
+    }
+
+    @Test
+    void isFull_boardIsFull_returnsTrue() throws IOException {
+        System.setIn(new ByteArrayInputStream(HOW_MANY_5.getBytes()));
+        Game game = new Game(5, 5);
+        System.in.close();
+        int[][] board = new int[][]{
+                {1, 2, 2, 2, 1},
+                {1, 2, 2, 2, 1},
+                {1, 1, 1, 2, 1},
+                {1, 2, 2, 2, 1},
+                {1, 1, 1, 1, 1}};
+        game.setBoard(board);
+        assertTrue(game.isFull());
+    }
+
     @Test
     void printBoard_boardIsFull_printsBoardAsExpected() throws IOException {
         int[][] board = new int[][]{
@@ -329,7 +322,7 @@ public class GameTest {
                 {1, 1, 1, 2, 1},
                 {1, 2, 2, 2, 1},
                 {1, 1, 1, 1, 1}};
-        System.setIn(new ByteArrayInputStream(input1.getBytes()));
+        System.setIn(new ByteArrayInputStream(HOW_MANY_5.getBytes()));
         Game game = new Game(5, 5);
         System.in.close();
         game.setBoard(board);
@@ -342,19 +335,18 @@ public class GameTest {
                         "  C  X  X  X  O  X" + System.lineSeparator() +
                         "  D  X  O  O  O  X" + System.lineSeparator() +
                         "  E  X  X  X  X  X" + System.lineSeparator() +
-                        System.lineSeparator(),
-                outContent.toString());
+                        System.lineSeparator(), outContent.toString());
     }
 
     @Test
-    void printBoard_boardIsEmpty_printsdots() throws IOException {
+    void printBoard_boardIsEmpty_printsDots() throws IOException {
         int[][] board = new int[][]{
                 {0, 0, 0, 0, 0},
                 {0, 0, 0, 0, 0},
                 {0, 0, 0, 0, 0},
                 {0, 0, 0, 0, 0},
                 {0, 0, 0, 0, 0}};
-        System.setIn(new ByteArrayInputStream(input1.getBytes()));
+        System.setIn(new ByteArrayInputStream(HOW_MANY_3.getBytes()));
         Game game = new Game(5, 5);
         System.in.close();
         game.setBoard(board);
@@ -367,7 +359,6 @@ public class GameTest {
                         "  C  .  .  .  .  ." + System.lineSeparator() +
                         "  D  .  .  .  .  ." + System.lineSeparator() +
                         "  E  .  .  .  .  ." + System.lineSeparator() +
-                        System.lineSeparator(),
-                outContent.toString());
+                        System.lineSeparator(), outContent.toString());
     }
 }

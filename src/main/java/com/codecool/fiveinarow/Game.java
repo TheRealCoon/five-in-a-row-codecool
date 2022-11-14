@@ -13,10 +13,10 @@ public class Game implements GameInterface {
         if (n >= MIN_HOW_MANY && m >= MIN_HOW_MANY) {
             board = new int[n][m];
         } else throw new IllegalArgumentException("Board dimensions must be equal or greater than 3!");
-        howMany = getUserInputForHowMany();
+        howMany = getHowManyValueFromUser();
     }
 
-    private int getUserInputForHowMany() {
+    public int getHowManyValueFromUser() {
         String input;
         int number = 0;
         Scanner scanner = new Scanner(System.in);
@@ -24,11 +24,11 @@ public class Game implements GameInterface {
         while (!isValidNumber(input = scanner.nextLine())) {
             System.out.println(input + " is not a valid number! Input must be a number and greater than " + MIN_HOW_MANY + "!");
             if (input.equalsIgnoreCase("quit")) quit();
-            try {
-                number = Integer.parseInt(input);
-            } catch (NumberFormatException e) {
-                System.out.println("Couldn't convert '" + input + "' into a number!");
-            }
+        }
+        try {
+            number = Integer.parseInt(input);
+        } catch (NumberFormatException e) {
+            System.out.println("Couldn't convert '" + input + "' into a number!");
         }
         scanner.close();
         return number;
@@ -44,7 +44,7 @@ public class Game implements GameInterface {
         } catch (NumberFormatException e) {
             return false;
         }
-        return number >= MIN_HOW_MANY;
+        return number >= MIN_HOW_MANY && number <= Math.max(board.length, board[0].length);
     }
 
     public int[][] getBoard() {
