@@ -269,6 +269,489 @@ public class GameTest {
     }
 
     @Test
+    void hasWon_playerHasWonInFirstColumn_returnsTrue() throws IOException {
+        System.setIn(new ByteArrayInputStream(HOW_MANY_5.getBytes()));
+        Game game = new Game(5, 5);
+        System.in.close();
+        int[][] board = new int[][]{
+                {1, 0, 0, 0, 0},
+                {1, 0, 0, 0, 0},
+                {1, 0, 0, 0, 0},
+                {1, 0, 0, 0, 0},
+                {1, 0, 0, 0, 0}};
+        game.setBoard(board);
+        assertTrue(game.hasWon(1));
+    }
+
+    @Test
+    void hasWon_playerHasWonInMiddleColumn_returnsTrue() throws IOException {
+        System.setIn(new ByteArrayInputStream(HOW_MANY_5.getBytes()));
+        Game game = new Game(5, 5);
+        System.in.close();
+        int[][] board = new int[][]{
+                {0, 0, 1, 0, 0},
+                {0, 0, 1, 0, 0},
+                {0, 0, 1, 0, 0},
+                {0, 0, 1, 0, 0},
+                {0, 0, 1, 0, 0}};
+        game.setBoard(board);
+        assertTrue(game.hasWon(1));
+    }
+
+    @Test
+    void hasWon_playerHasWonInLastColumn_returnsTrue() throws IOException {
+        System.setIn(new ByteArrayInputStream(HOW_MANY_5.getBytes()));
+        Game game = new Game(5, 5);
+        System.in.close();
+        int[][] board = new int[][]{
+                {0, 0, 0, 0, 1},
+                {0, 0, 0, 0, 1},
+                {0, 0, 0, 0, 1},
+                {0, 0, 0, 0, 1},
+                {0, 0, 0, 0, 1}};
+        game.setBoard(board);
+        assertTrue(game.hasWon(1));
+    }
+
+    @Test
+    void hasWon_playerHasWonDiagonallyDown_returnsTrue() throws IOException {
+        System.setIn(new ByteArrayInputStream(HOW_MANY_5.getBytes()));
+        Game game = new Game(5, 5);
+        System.in.close();
+        int[][] board = new int[][]{
+                {1, 0, 0, 0, 0},
+                {0, 1, 0, 0, 0},
+                {0, 0, 1, 0, 0},
+                {0, 0, 0, 1, 0},
+                {0, 0, 0, 0, 1}};
+        game.setBoard(board);
+        assertTrue(game.hasWon(1));
+    }
+    @Test
+    void hasWon_playerHasWon_01_DiagonallyDownBigBoard_returnsTrue() throws IOException {
+        System.setIn(new ByteArrayInputStream(HOW_MANY_5.getBytes()));
+        Game game = new Game(10, 8);
+        System.in.close();
+        int[][] board = new int[][]{
+                {1, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 1, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 1, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 1, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 1, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}};
+        game.setBoard(board);
+        assertTrue(game.hasWon(1));
+    }
+
+    @Test
+    void hasWon_playerHasWon_02_DiagonallyDownBigBoard_returnsTrue() throws IOException {
+        System.setIn(new ByteArrayInputStream(HOW_MANY_5.getBytes()));
+        Game game = new Game(10, 8);
+        System.in.close();
+        int[][] board = new int[][]{
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 1, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 1, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 1, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 1, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 1, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}};
+        game.setBoard(board);
+        assertTrue(game.hasWon(1));
+    }
+    @Test
+    void hasWon_playerHasWon_03_DiagonallyDownBigBoard_returnsTrue() throws IOException {
+        System.setIn(new ByteArrayInputStream(HOW_MANY_5.getBytes()));
+        Game game = new Game(10, 8);
+        System.in.close();
+        int[][] board = new int[][]{
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 1, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 1, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 1, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 1, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 1}};
+        game.setBoard(board);
+        assertTrue(game.hasWon(1));
+    }
+
+    @Test
+    void hasWon_playerHasWon_04_DiagonallyDownBigBoard_returnsTrue() throws IOException {
+        System.setIn(new ByteArrayInputStream(HOW_MANY_5.getBytes()));
+        Game game = new Game(10, 8);
+        System.in.close();
+        int[][] board = new int[][]{
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {1, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 1, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 1, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 1, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 1, 0, 0, 0, 0, 0}};
+        game.setBoard(board);
+        assertTrue(game.hasWon(1));
+    }
+
+    @Test
+    void hasWon_playerHasWon_05_DiagonallyDownBigBoard_returnsTrue() throws IOException {
+        System.setIn(new ByteArrayInputStream(HOW_MANY_5.getBytes()));
+        Game game = new Game(10, 8);
+        System.in.close();
+        int[][] board = new int[][]{
+                {0, 0, 0, 0, 0, 1, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 1, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 1, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 1, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}};
+        game.setBoard(board);
+        assertTrue(game.hasWon(1));
+    }
+
+    @Test
+    void hasWon_playerHasWon_06_DiagonallyDownBigBoard_returnsTrue() throws IOException {
+        System.setIn(new ByteArrayInputStream(HOW_MANY_5.getBytes()));
+        Game game = new Game(10, 8);
+        System.in.close();
+        int[][] board = new int[][]{
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 1, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 1, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 1, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 1, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 1}};
+        game.setBoard(board);
+        assertTrue(game.hasWon(1));
+    }
+
+    @Test
+    void hasWon_playerHasWon_01_DiagonallyUpBigBoard_returnsTrue() throws IOException {
+        System.setIn(new ByteArrayInputStream(HOW_MANY_5.getBytes()));
+        Game game = new Game(10, 8);
+        System.in.close();
+        int[][] board = new int[][]{
+                {0, 0, 0, 0, 1, 0, 0, 0, 0, 0},
+                {0, 0, 0, 1, 0, 0, 0, 0, 0, 0},
+                {0, 0, 1, 0, 0, 0, 0, 0, 0, 0},
+                {0, 1, 0, 0, 0, 0, 0, 0, 0, 0},
+                {1, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}};
+        game.setBoard(board);
+        assertTrue(game.hasWon(1));
+    }
+
+    @Test
+    void hasWon_playerHasWon_02_DiagonallyUpBigBoard_returnsTrue() throws IOException {
+        System.setIn(new ByteArrayInputStream(HOW_MANY_5.getBytes()));
+        Game game = new Game(10, 8);
+        System.in.close();
+        int[][] board = new int[][]{
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+                {0, 0, 0, 0, 0, 0, 0, 0, 1, 0},
+                {0, 0, 0, 0, 0, 0, 0, 1, 0, 0},
+                {0, 0, 0, 0, 0, 0, 1, 0, 0, 0},
+                {0, 0, 0, 0, 0, 1, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}};
+        game.setBoard(board);
+        assertTrue(game.hasWon(1));
+    }
+
+    @Test
+    void hasWon_playerHasWon_03_DiagonallyUpBigBoard_returnsTrue() throws IOException {
+        System.setIn(new ByteArrayInputStream(HOW_MANY_5.getBytes()));
+        Game game = new Game(10, 8);
+        System.in.close();
+        int[][] board = new int[][]{
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 1, 0, 0, 0, 0, 0},
+                {0, 0, 0, 1, 0, 0, 0, 0, 0, 0},
+                {0, 0, 1, 0, 0, 0, 0, 0, 0, 0},
+                {0, 1, 0, 0, 0, 0, 0, 0, 0, 0},
+                {1, 0, 0, 0, 0, 0, 0, 0, 0, 0}};
+        game.setBoard(board);
+        assertTrue(game.hasWon(1));
+    }
+
+    @Test
+    void hasWon_playerHasWon_04_DiagonallyUpBigBoard_returnsTrue() throws IOException {
+        System.setIn(new ByteArrayInputStream(HOW_MANY_5.getBytes()));
+        Game game = new Game(10, 8);
+        System.in.close();
+        int[][] board = new int[][]{
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+                {0, 0, 0, 0, 0, 0, 0, 0, 1, 0},
+                {0, 0, 0, 0, 0, 0, 0, 1, 0, 0},
+                {0, 0, 0, 0, 0, 0, 1, 0, 0, 0},
+                {0, 0, 0, 0, 0, 1, 0, 0, 0, 0}};
+        game.setBoard(board);
+        assertTrue(game.hasWon(1));
+    }
+
+    @Test
+    void hasWon_playerHasWon_05_DiagonallyUpBigBoard_returnsTrue() throws IOException {
+        System.setIn(new ByteArrayInputStream(HOW_MANY_5.getBytes()));
+        Game game = new Game(10, 8);
+        System.in.close();
+        int[][] board = new int[][]{
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 1, 0},
+                {0, 0, 0, 0, 0, 0, 0, 1, 0, 0},
+                {0, 0, 0, 0, 0, 0, 1, 0, 0, 0},
+                {0, 0, 0, 0, 0, 1, 0, 0, 0, 0},
+                {0, 0, 0, 0, 1, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}};
+        game.setBoard(board);
+        assertTrue(game.hasWon(1));
+    }
+
+    @Test
+    void hasWon_playerHasNotWon_01_HorizontallyBigBoard_returnsFalse() throws IOException {
+        System.setIn(new ByteArrayInputStream(HOW_MANY_5.getBytes()));
+        Game game = new Game(10, 8);
+        System.in.close();
+        int[][] board = new int[][]{
+                {0, 1, 1, 1, 1, 1, 1, 1, 1, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}};
+        game.setBoard(board);
+        assertFalse(game.hasWon(1));
+    }
+    @Test
+    void hasWon_playerHasNotWon_02_HorizontallyBigBoard_returnsFalse() throws IOException {
+        System.setIn(new ByteArrayInputStream(HOW_MANY_5.getBytes()));
+        Game game = new Game(10, 8);
+        System.in.close();
+        int[][] board = new int[][]{
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 1, 1, 1, 1, 1, 1, 1, 1}};
+        game.setBoard(board);
+        assertFalse(game.hasWon(1));
+    }
+
+    @Test
+    void hasWon_playerHasNotWon_03_HorizontallyBigBoard_returnsFalse() throws IOException {
+        System.setIn(new ByteArrayInputStream(HOW_MANY_5.getBytes()));
+        Game game = new Game(10, 8);
+        System.in.close();
+        int[][] board = new int[][]{
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {1, 1, 1, 1, 1, 1, 1, 1, 1, 1}};
+        game.setBoard(board);
+        assertFalse(game.hasWon(1));
+    }
+
+    @Test
+    void hasWon_playerHasNotWon_04_HorizontallyBigBoard_returnsFalse() throws IOException {
+        System.setIn(new ByteArrayInputStream(HOW_MANY_5.getBytes()));
+        Game game = new Game(12, 8);
+        System.in.close();
+        int[][] board = new int[][]{
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 1, 1, 1, 1, 0, 1, 1, 1, 1, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ,0}};
+        game.setBoard(board);
+        assertFalse(game.hasWon(1));
+    }
+
+    @Test
+    void hasWon_playerHasNotWon_05_HorizontallyBigBoard_returnsFalse() throws IOException {
+        System.setIn(new ByteArrayInputStream(HOW_MANY_5.getBytes()));
+        Game game = new Game(12, 8);
+        System.in.close();
+        int[][] board = new int[][]{
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ,0}};
+        game.setBoard(board);
+        assertFalse(game.hasWon(1));
+    }
+
+    @Test
+    void hasWon_playerHasNotWon_06_HorizontallyBigBoard_returnsFalse() throws IOException {
+        System.setIn(new ByteArrayInputStream(HOW_MANY_5.getBytes()));
+        Game game = new Game(12, 8);
+        System.in.close();
+        int[][] board = new int[][]{
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 1, 1, 1, 1, 0, 1, 1, 1, 1},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ,0}};
+        game.setBoard(board);
+        assertFalse(game.hasWon(1));
+    }
+
+    @Test
+    void hasWon_playerHasNotWon_01_VerticallyBigBoard_returnsFalse() throws IOException {
+        System.setIn(new ByteArrayInputStream(HOW_MANY_5.getBytes()));
+        Game game = new Game(12, 8);
+        System.in.close();
+        int[][] board = new int[][]{
+                {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ,0}};
+        game.setBoard(board);
+        assertFalse(game.hasWon(1));
+    }
+
+    @Test
+    void hasWon_playerHasNotWon_02_VerticallyBigBoard_returnsFalse() throws IOException {
+        System.setIn(new ByteArrayInputStream(HOW_MANY_5.getBytes()));
+        Game game = new Game(12, 8);
+        System.in.close();
+        int[][] board = new int[][]{
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ,1}};
+        game.setBoard(board);
+        assertFalse(game.hasWon(1));
+    }
+
+    @Test
+    void hasWon_playerHasNotWon_03_VerticallyBigBoard_returnsFalse() throws IOException {
+        System.setIn(new ByteArrayInputStream(HOW_MANY_5.getBytes()));
+        Game game = new Game(12, 8);
+        System.in.close();
+        int[][] board = new int[][]{
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ,1}};
+        game.setBoard(board);
+        assertFalse(game.hasWon(1));
+    }
+
+    @Test
+    void hasWon_playerHasNotWon_01_DiagonallyDownBigBoard_returnsFalse() throws IOException {
+        System.setIn(new ByteArrayInputStream(HOW_MANY_5.getBytes()));
+        Game game = new Game(12, 12);
+        System.in.close();
+        int[][] board = new int[][]{
+                {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ,0}};
+        game.setBoard(board);
+        assertFalse(game.hasWon(1));
+    }
+
+    @Test
+    void hasWon_playerHasNotWon_02_DiagonallyDownBigBoard_returnsFalse() throws IOException {
+        System.setIn(new ByteArrayInputStream(HOW_MANY_5.getBytes()));
+        Game game = new Game(12, 12);
+        System.in.close();
+        int[][] board = new int[][]{
+                {1, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0},
+                {0, 1, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0},
+                {0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0},
+                {0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 1},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0},
+                {0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0},
+                {1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1},
+                {0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {1, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0},
+                {0, 1, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0},
+                {0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0},
+                {0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0 ,1}};
+        game.setBoard(board);
+        assertFalse(game.hasWon(1));
+    }
+
+    @Test
+    void hasWon_playerHasNotWon_01_DiagonallyUpBigBoard_returnsFalse() throws IOException {
+        System.setIn(new ByteArrayInputStream(HOW_MANY_5.getBytes()));
+        Game game = new Game(12, 8);
+        System.in.close();
+        int[][] board = new int[][]{
+                {0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 1},
+                {0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 1, 0},
+                {0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0},
+                {1, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 1},
+                {0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0},
+                {0, 1, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0},
+                {1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1},
+                {0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0},
+                {0, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 1},
+                {0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 1, 0},
+                {0, 1, 0, 0, 1, 0, 0, 1, 0, 1, 0, 0},
+                {1, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0 ,0}};
+        game.setBoard(board);
+        assertFalse(game.hasWon(1));
+    }
+
+    @Test
     void hasWon_playerHasNotWon_returnsFalse() throws IOException {
         System.setIn(new ByteArrayInputStream(HOW_MANY_5.getBytes()));
         Game game = new Game(5, 5);
@@ -283,6 +766,8 @@ public class GameTest {
         assertFalse(game.hasWon(1));
         assertFalse(game.hasWon(2));
     }
+
+
 
     @Test
     void isFull_boardIsNotFull_returnsFalse() throws IOException {

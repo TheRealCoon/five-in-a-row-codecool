@@ -112,13 +112,13 @@ public class Game implements GameInterface {
     }
 
     private boolean hasWonDiagonallyDown(int player) {
-        for (int i = 0; i < board.length - howMany + 1; i++) {
-            for (int j = 0; j < board[0].length - howMany + 1; j++) {
-                if (board[i][j] == player) {
+        for (int v = 0; v < board.length - howMany + 1; v++) {
+            for (int h = 0; h < board[0].length - howMany + 1; h++) {
+                if (board[v][h] == player) {
                     int counter = 1;
-                    int maxK = Math.min(howMany, Math.min(board.length - i, board[0].length - j));
+                    int maxK = Math.min(board.length - v, board[0].length - h);
                     for (int k = 1; k < maxK; k++) {
-                        if (board[i + k][j + k] == player) {
+                        if (board[v + k][h + k] == player) {
                             counter++;
                         } else {
                             break;
@@ -132,19 +132,19 @@ public class Game implements GameInterface {
     }
 
     private boolean hasWonDiagonallyUp(int player) {
-        for (int i = howMany - 1; i >= 0; i--) {
-            for (int j = 0; j < board[0].length - howMany + 1; j++) {
-                if (board[i][j] == player) {
+        for (int v = board.length - 1; v >= howMany - 1; v--) {
+            for (int h = 0; h < board[0].length - howMany + 1; h++) {
+                if (board[v][h] == player) {
                     int counter = 1;
-                    int maxK = Math.min(howMany, Math.min(i, board[0].length - j));
+                    int maxK = Math.min(v + 1, board[0].length - h);
                     for (int k = 1; k < maxK; k++) {
-                        if (board[i - k][j + k] == player) {
+                        if (board[v - k][h + k] == player) {
                             counter++;
                         } else {
                             break;
                         }
-                        if (counter == howMany) return true;
                     }
+                    if (counter == howMany) return true;
                 }
             }
         }
@@ -152,20 +152,20 @@ public class Game implements GameInterface {
     }
 
     private boolean hasWonHorizontally(int player) {
-        for (int i = 0; i < board.length; i++) {
-            for (int j = 0; j < board[0].length - howMany + 1; j++) {
-                if (board[i][j] == player) {
+        for (int v = 0; v < board.length; v++) {
+            for (int h = 0; h < board[0].length - howMany + 1; h++) {
+                if (board[v][h] == player) {
                     int counter = 1;
-                    int maxK = Math.min(j + howMany, board[0].length);
-                    for (int k = j + 1; k < maxK; k++) {
-                        if (board[i][k] == player) {
+                    int maxK = Math.min(h + howMany + 1, board[0].length);
+                    for (int k = h + 1; k < maxK; k++) {
+                        h = k;
+                        if (board[v][k] == player) {
                             counter++;
                         } else {
-                            j = k;
                             break;
                         }
-                        if (counter == howMany) return true;
                     }
+                    if (counter == howMany) return true;
                 }
             }
         }
@@ -173,20 +173,20 @@ public class Game implements GameInterface {
     }
 
     private boolean hasWonVertically(int player) {
-        for (int i = 0; i < board[0].length; i++) {
-            for (int j = 0; j < board.length - howMany + 1; j++) {
-                if (board[j][i] == player) {
+        for (int h = 0; h < board[0].length; h++) {
+            for (int v = 0; v < board.length - howMany + 1; v++) {
+                if (board[v][h] == player) {
                     int counter = 1;
-                    int maxK = Math.min(j + howMany, board.length);
-                    for (int k = j + 1; k < maxK; k++) {
-                        if (board[i][k] == player) {
+                    int maxK = Math.min(v + howMany, board.length);
+                    for (int k = v + 1; k < maxK; k++) {
+                        v = k;
+                        if (board[k][h] == player) {
                             counter++;
                         } else {
-                            j = k;
                             break;
                         }
-                        if (counter == howMany) return true;
                     }
+                    if (counter == howMany) return true;
                 }
             }
         }
