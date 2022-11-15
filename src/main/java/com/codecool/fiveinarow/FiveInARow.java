@@ -63,8 +63,8 @@ public class FiveInARow {
 
     private static void startGame() {
         setUpGame();
-        Game game = new Game(rows, columns);
-        game.play(); //comment out if you want to show the "NoSuchElementException to mentors"
+        Game game = new Game(rows, columns, input);
+        game.play();
     }
 
     private static void displayMainMenu() {

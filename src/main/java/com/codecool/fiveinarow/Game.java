@@ -1,28 +1,25 @@
 package com.codecool.fiveinarow;
 
 import java.util.NoSuchElementException;
-import java.util.Scanner;
 import java.util.StringJoiner;
 
 public class Game implements GameInterface {
     private int[][] board;
     private final int howMany;
     private final int MIN_HOW_MANY = 3;
-//    private final Input input = new Input();
-//TODO implement Input here also, to get rid of NoSuchElementException<- problem was the scanner.close(), but still implement Input
-    public Game(int n, int m) {
+    private final Input input;
+    public Game(int n, int m, Input input) {
         if (n >= MIN_HOW_MANY && m >= MIN_HOW_MANY) {
             board = new int[n][m];
         } else throw new IllegalArgumentException("Board dimensions must be equal or greater than 3!");
+        this.input = input;
         howMany = getHowManyValueFromUser();
     }
 
     public int getHowManyValueFromUser() {
         String input;
         int number = 0;
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("How many marks in a row are needed for win?");
-        while (!isValidNumber(input = scanner.nextLine())) {
+        while (!isValidNumber(input = this.input.readInput("How many marks in a row are needed for win?"))) {
             System.out.println("Input must be a number, greater than " + (MIN_HOW_MANY - 1) +
                     ", and smaller than " + (Math.max(board.length, board[0].length) + 1) + "!");
             if (input.equalsIgnoreCase("quit")) quit();
@@ -58,10 +55,8 @@ public class Game implements GameInterface {
 
     public int[] getMove(int player) throws NoSuchElementException {
         String input;
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Player" + player + ", enter your next move:");
-        while (!isValid(input = scanner.nextLine().toUpperCase())) {
-            System.out.println(input + " is not a valid input or is taken! Please enter a valid coordinate!");
+        if(!isValid(input = this.input.readInput("Player" + player + ", enter your next move:").toUpperCase())) {
+            throw new NoSuchElementException(input + " is not a valid input or is taken! Please enter a valid coordinate!");
         }
         if (input.equalsIgnoreCase("quit")) quit();
         return convertToCoordinate(input);
@@ -254,7 +249,7 @@ public class Game implements GameInterface {
     }
 
     public void play() {
-
+        getMove(1);
     }
 
     private void quit() {
