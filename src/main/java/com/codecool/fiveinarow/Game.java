@@ -8,6 +8,9 @@ public class Game implements GameInterface {
     private final int howMany;
     private final int MIN_HOW_MANY = 3;
     private final Input input;
+    private final int player1 = 1;
+    private final int player2 = 2;
+
     public Game(int n, int m, Input input) {
         if (n >= MIN_HOW_MANY && m >= MIN_HOW_MANY) {
             board = new int[n][m];
@@ -55,7 +58,7 @@ public class Game implements GameInterface {
 
     public int[] getMove(int player) throws NoSuchElementException {
         String input;
-        if(!isValid(input = this.input.readInput("Player" + player + ", enter your next move:").toUpperCase())) {
+        if (!isValid(input = this.input.readInput("Player" + player + ", enter your next move:").toUpperCase())) {
             throw new NoSuchElementException(input + " is not a valid input or is taken! Please enter a valid coordinate!");
         }
         if (input.equalsIgnoreCase("quit")) quit();
@@ -234,13 +237,13 @@ public class Game implements GameInterface {
     }
 
     public void printResult(int player) {
-        String msg;
-        if (player == 1) {
-            msg = "X won!";
-        } else if (player == 2) {
-            msg = "O won!";
-        } else {
+        String msg = null;
+        if (isFull()) {
             msg = "It's a tie!";
+        } else if (player == player1) {
+            msg = "X won!";
+        } else if (player == player2) {
+            msg = "O won!";
         }
         System.out.println(msg);
     }
@@ -249,7 +252,28 @@ public class Game implements GameInterface {
     }
 
     public void play() {
-        getMove(1);
+        int currentPlayer = player2;
+        printBoard();
+        do {
+            currentPlayer = switchPlayer(currentPlayer);
+            int[] move;
+            while(true){
+                try {
+                    move = getMove(currentPlayer);
+                    break;
+                } catch (NoSuchElementException e) {
+                    System.out.println(e.getMessage());
+                }
+            }
+            mark(currentPlayer, move[0], move[1]);
+            printBoard();
+        } while (!hasWon(currentPlayer) && !isFull());
+        printResult(currentPlayer);
+
+    }
+
+    private int switchPlayer(int player) {
+        return (player == player1) ? player2 : player1;
     }
 
     private void quit() {
